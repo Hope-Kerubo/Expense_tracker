@@ -1,4 +1,5 @@
 from datetime import datetime
+
 from categories import ExpenseCategory
 
 
@@ -11,6 +12,7 @@ class Expense:
     def __str__(self):
         return f"{self.date.strftime('%Y-%m-%d')} - ${self.amount:.2f} - {self.description}"
 
+
 class CategorizedExpense(Expense):
     def __init__(self, amount, description, date, category):
         super().__init__(amount, description, date)
@@ -18,6 +20,7 @@ class CategorizedExpense(Expense):
 
     def __str__(self):
         return super().__str__() + f" ({self.category.value})"
+
 
 class ExpenseTracker:
     def __init__(self):
@@ -59,8 +62,16 @@ class ExpenseTracker:
             for index, expense in enumerate(matching_expenses):
                 print(f"{index}: {expense}")
 
+
 # Example usage
 tracker = ExpenseTracker()
+
+
+def get_enum_item_by_index(enum_class, index):
+    if 0 <= index < len(enum_class):
+        return list(enum_class)[index]
+    raise IndexError("Enum index out of range")
+
 
 while True:
     print("\nOptions:")
@@ -76,13 +87,19 @@ while True:
 
         # Display available categories
         print("Available Categories:")
-        for index,category in enumerate(ExpenseCategory):
-            print(f"{index+1}:{category.value} ")
+        for index, category in enumerate(ExpenseCategory):
+            print(f"{index + 1}:{category.value} ")
 
-        category_input = input("Enter the expense category: ")
+        category_input = int(input("Enter the expense category: "))
+        if category_input > 0:
+            category_input -= 1
+
         category = None
+        teCateory = get_enum_item_by_index(ExpenseCategory, category_input)
+        print(teCateory.name)
+
         for enum_category in ExpenseCategory:
-            if enum_category.value == category_input:
+            if enum_category.value == teCateory.value:
                 category = enum_category
                 break
         if category is None:
@@ -105,7 +122,7 @@ while True:
         print("d. Exit")
         choice = input("Enter your choice: ")
         if choice == "a":
-           tracker.list_expenses()
+            tracker.list_expenses()
         elif choice == "b":
             category_input = input("Enter the category to filter by: ")
             category = None
