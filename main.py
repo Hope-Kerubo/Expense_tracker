@@ -1,5 +1,5 @@
 from datetime import datetime
-
+from ExpenseTracker import ExpenseTracker
 from categories import ExpenseCategory
 
 
@@ -22,47 +22,6 @@ class CategorizedExpense(Expense):
         return super().__str__() + f" ({self.category.value})"
 
 
-class ExpenseTracker:
-    def __init__(self):
-        self.expenses = []
-
-    def add_expense(self, expense):
-        self.expenses.append(expense)
-
-    def remove_expense(self, index):
-        if 0 <= index < len(self.expenses):
-            removed_expense = self.expenses.pop(index)
-            print(f"Removed expense: {removed_expense}")
-        else:
-            print("Invalid index.")
-
-    def list_expenses(self):
-        if not self.expenses:
-            print("No expenses to display.")
-        else:
-            print("Expenses:")
-            for index, expense in enumerate(self.expenses):
-                print(f"{index}: {expense}")
-
-    def list_expenses_by_category(self, category):
-        matching_expenses = [expense for expense in self.expenses if expense.category == category]
-        if not matching_expenses:
-            print(f"No expenses in the {category.value} category.")
-        else:
-            print(f"Expenses in the {category.value} category:")
-            for index, expense in enumerate(matching_expenses):
-                print(f"{index}: {expense}")
-
-    def list_expenses_by_date(self, date):
-        matching_expenses = [expense for expense in self.expenses if expense.date == date]
-        if not matching_expenses:
-            print(f"No expenses on {date.strftime('%Y-%m-%d')}.")
-        else:
-            print(f"Expenses on {date.strftime('%Y-%m-%d')}:")
-            for index, expense in enumerate(matching_expenses):
-                print(f"{index}: {expense}")
-
-
 # Example usage
 tracker = ExpenseTracker()
 
@@ -73,6 +32,7 @@ def get_enum_item_by_index(enum_class, index):
     raise IndexError("Enum index out of range")
 
 
+# console app initial display
 while True:
     print("\nOptions:")
     print("1. Add Expense")
@@ -90,6 +50,7 @@ while True:
         for index, category in enumerate(ExpenseCategory):
             print(f"{index + 1}:{category.value} ")
 
+        # select category number from listed categories above
         category_input = int(input("Enter the expense category: "))
         if category_input > 0:
             category_input -= 1
@@ -115,6 +76,7 @@ while True:
     elif choice == "2":
         index = int(input("Enter the index of the expense to remove: "))
         tracker.remove_expense(index)
+    # list of choices for viewing expenses
     elif choice == "3":
         print("a. List all Expenses")
         print("b. List Expenses by Category")
