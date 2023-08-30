@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 # list of categories that a user can select from
 class ExpenseCategory(Enum):
     FOOD = "Food"

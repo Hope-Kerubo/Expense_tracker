@@ -7,7 +7,6 @@ from categories import ExpenseCategory
 # Example usage
 tracker = ExpenseTracker()
 
-
 def get_enum_item_by_index(enum_class, index):
     if 0 <= index < len(enum_class):
         return list(enum_class)[index]
@@ -50,11 +49,13 @@ while True:
             print("Invalid category. Please select again")
             continue
         description = input("Enter a description: ")
-
-        date_str = input("Enter the date (YYYY-MM-DD): ")
-        date = datetime.strptime(date_str, "%Y-%m-%d")
-        expense = CategorizedExpense(amount, description, date, category)
-        tracker.add_expense(expense)
+        try:
+           date_str = input("Enter the date (YYYY-MM-DD): ")
+           date = datetime.strptime(date_str, "%Y-%m-%d")
+           expense = CategorizedExpense(amount, description, date, category)
+           tracker.add_expense(expense)
+        except Exception as e:
+           print(e)
         print("Expense added successfully.")
     elif choice == "2":
         index = int(input("Enter the index of the expense to remove: "))
