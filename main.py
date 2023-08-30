@@ -25,7 +25,11 @@ while True:
     choice = input("Enter your choice: ")
 
     if choice == "1":
-        amount = float(input("Enter the expense amount: "))
+        try:
+           amount = float(input("Enter the expense amount: "))
+        except ValueError as e:
+            print(e)
+
 
         # Display available categories
         print("Available Categories:")
@@ -56,6 +60,7 @@ while True:
            tracker.add_expense(expense)
         except Exception as e:
            print(e)
+
         print("Expense added successfully.")
     elif choice == "2":
         index = int(input("Enter the index of the expense to remove: "))
