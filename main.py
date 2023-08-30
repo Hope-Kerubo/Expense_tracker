@@ -34,6 +34,7 @@ def get_enum_item_by_index(enum_class, index):
 
 # console app initial display
 while True:
+    print("\nEXPENSE TRACKING!")
     print("\nOptions:")
     print("1. Add Expense")
     print("2. Remove Expense")
@@ -64,7 +65,7 @@ while True:
                 category = enum_category
                 break
         if category is None:
-            print("Invalid category.")
+            print("Invalid category. Please select again")
             continue
         description = input("Enter a description: ")
 
